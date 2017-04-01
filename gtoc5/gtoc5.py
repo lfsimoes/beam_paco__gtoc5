@@ -191,9 +191,9 @@ def rendezvous_leg(mission, next_ast, leg_dT=None, leg_dT_bounds=None,
 	mass_rv = leg.arr_m - MASS_EQUIPMENT
 	
 	return (
-		next_ast,		# asteroid UID
-		mass_rv,		# mass at asteroid, after the payload delivery
-		leg.arr_t,		# Epoch at time of departure to self-flyby
+		next_ast,       # asteroid UID
+		mass_rv,        # mass at asteroid, after the payload delivery
+		leg.arr_t,      # Epoch at time of departure to self-flyby
 		leg.dT,
 		leg.dV
 		)
@@ -210,9 +210,9 @@ def self_flyby_leg(mission):
 	dT_fb = dep_m * dT_fb_mult
 	
 	return (
-		ast,			# asteroid UID
-		mass_fb,		# mass at asteroid, after the penetrator's delivery
-		dep_t + dT_fb,	# Epoch at the end of the flyby
+		ast,            # asteroid UID
+		mass_fb,        # mass at asteroid, after the penetrator's delivery
+		dep_t + dT_fb,  # Epoch at the end of the flyby
 		dT_fb,
 		dV_fb
 		)

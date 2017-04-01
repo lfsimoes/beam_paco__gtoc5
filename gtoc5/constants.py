@@ -104,7 +104,7 @@ _body[:,3:] = np.deg2rad(_body[:,3:])
 # (Earth placed at index 0; asteroids' ids then match their indices in the list)
 asteroids = [earth] + [
 	pk.planet.keplerian(pk.epoch(orbparam[0], 'mjd'), tuple(orbparam[1:]),
-		                MU_SUN, 0, 0, 0, name)
+	                    MU_SUN, 0, 0, 0, name)
 	for (orbparam, name) in zip(_body, body_names)
 	]
 
