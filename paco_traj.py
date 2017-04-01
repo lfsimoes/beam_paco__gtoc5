@@ -386,7 +386,14 @@ def heuristic__norml(rating, gamma=50, tabu=()):
 # ==================================== ## ==================================== #
 # ------------------------------------ # Path handler for GTOC5 missions
 
+# The classes below implement the same interface as paco.py's `tsp_path`
+# class, which allows instances of `paco` or its sub-classes to solve
+# Travelling Salesman Problem instances.
+
 class gtoc5_ant(object):
+	"""
+	Handler for GTOC5 trajectories subjected to single-objective evaluations.
+	"""
 	
 	# indication that the costs of asteroid transfers are *not* symmetric
 	symmetric = False
@@ -508,22 +515,26 @@ class gtoc5_ant(object):
 
 class gtoc5_ant_pareto(gtoc5_ant):
 	"""
+	Handler for GTOC5 trajectories subjected to multi-objective evaluations.
+	
 	Specialization of the `gtoc5_ant` class that uses Pareto dominance
 	to evaluate and sort ant paths (missions).
 	"""
 	
 	def initialize(self, aco):
 		super(gtoc5_ant_pareto, self).initialize(aco)
-		self.random = aco.random
+#		self.random = aco.random
 		
 	
 	def evaluate(self, ant_path):
 		"""
 		Quality function used to evaluate an ant's path through the graph.
+		
 		Produces an evaluation according to multiple criteria:
 		1. score (number of asteroids fully explored in the mission)
 		2. fuel mass consumed [kg]
 		3. total flight time [years]
+		
 		The ideal mission will have MAX score, with MIN mass and time costs.
 		"""
 		mass_used = MASS_MAX - final_mass(ant_path)
@@ -579,10 +590,10 @@ class gtoc5_ant_pareto(gtoc5_ant):
 			if f == 1:
 				return [p[idx] for idx in pf]
 			else:
-				# pick a random path from the Pareto front
-				#return [p[self.random.choice(pf)]]
-				# pick the path with highest resource rating
-				#return [max(p, key=lambda i: resource_rating(i[1]))]
+#				# pick a random path from the Pareto front
+#				return [p[self.random.choice(pf)]]
+#				# pick the path with highest resource rating
+#				return [max(p, key=lambda i: resource_rating(i[1]))]
 				# pick the first point in the Pareto front (min mass cost)
 				return [p[pf[0]]]
 		
@@ -602,13 +613,13 @@ class gtoc5_ant_pareto(gtoc5_ant):
 				# requested number of paths, fill up the ranked list with a
 				# subset of paths from the front
 				if r is not None and r_len + len(pf) > r:
-					# pick a random subset of paths from the Pareto front
-					#pf = self.random.choice(pf, size=r - r_len, replace=False)
-					# pick the paths with highest resource rating
-					#pf.sort(
-					#	key=lambda i: resource_rating(ev_paths[i][1]),
-					#	reverse=True)
-					#pf = pf[:r - r_len]
+#					# pick a random subset of paths from the Pareto front
+#					pf = self.random.choice(pf, size=r - r_len, replace=False)
+#					# pick the paths with highest resource rating
+#					pf.sort(
+#						key=lambda i: resource_rating(ev_paths[i][1]),
+#						reverse=True)
+#					pf = pf[:r - r_len]
 					# pick the paths with smallest mass cost (slicing is
 					# sufficient, as `non_dominated_sorting` returns indices
 					# lexicographically sorted by ascending order of cost)
@@ -629,7 +640,7 @@ class gtoc5_ant_pareto(gtoc5_ant):
 		
 		# If we've reached this point, all the provided `evaluated_paths` are
 		# now ranked in `ranked_paths`. Either `r` and `f` were not specified,
-		# or the provided paths didn't allow for those thresholds to be reached.
+		# or the provided paths didn't allow for those thresholds to be reached
 		return ranked_paths
 		
 	
