@@ -411,7 +411,7 @@ class gtoc5_ant(object):
 		self.rate_destinations = rate__orbital_2 if ratingf is None else ratingf
 		# reference transfer time used in the Orbital phasing indicator
 		self.ref_dT = ref_dT
-		# "greedyness exponent" used in the `heuristic` function
+		# "greediness exponent" used in the `heuristic` function
 		self.gamma = gamma
 		# parameters configuring the addition of new legs to missions.
 		# if unspecified, defaults throughout the called functions to:
