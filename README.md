@@ -7,7 +7,7 @@ This repository contains the code implementing the research described in the pap
 > [ [DOI][DOI] . [Google Scholar][Scholar] . [ResearchGate][RG] ]
 
 
-
+&nbsp;
 ## Code Structure ##
 
 ### [`gtoc5`](gtoc5) ###
@@ -47,7 +47,7 @@ In [`experiments__paco.py`](experiments__paco.py) the path handler, and the chos
 *[To be added in coming days: code implementing the data analysis of the experimental results.]*
 
 
-
+&nbsp;
 ## References ##
 
 For additional information on the GTOC5 problem, P-ACO or Beam Search, consult the references below.
@@ -74,7 +74,7 @@ See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 10. Wilt, C.M., Thayer, J.T., Ruml, W.: [A comparison of greedy search algorithms][ref10]. In: *Proceedings of the Third Annual Symposium on Combinatorial Search (SOCS-10)*. pp. 129–136 (2010)
 
 
-
+&nbsp;
 ## Dependencies ##
 
 Below is the list of Python libraries on which the code depends.
