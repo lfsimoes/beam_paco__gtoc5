@@ -7,6 +7,7 @@ This repository contains the code implementing the research described in the pap
 > [ [DOI][DOI] . [Google Scholar][Scholar] . [ResearchGate][RG] ]
 
 
+
 ## Code Structure ##
 
 ### [`gtoc5`](gtoc5) ###
@@ -19,7 +20,7 @@ The [`gtoc5`](gtoc5) module provided here contains an implementation of the prob
 
 ### [`paco`](paco) ###
 
-The [`paco`](paco) module provides a (problem-independent) implementation of the Population-based Ant Colony Optimization (P-ACO) algorithm, together with the extensions introduced in the paper: hybridization with Beam Search, and support for multi-objective problems. The different variants are made available through the following classes:
+The [`paco`](paco) module provides a (problem-independent) implementation of the Population-based Ant Colony Optimization algorithm (P-ACO), together with the extensions introduced in the paper: hybridization with Beam Search, and support for multi-objective problems. The different variants are made available through the following classes:
 
 | Class                                   | Algorithm                    |
 |:--------------------------------------- |:---------------------------- |
@@ -28,26 +29,28 @@ The [`paco`](paco) module provides a (problem-independent) implementation of the
 | [`beam_paco`](paco/paco.py#L390)        | Beam P-ACO, single-objective |
 | [`beam_paco_pareto`](paco/paco.py#L631) | Beam P-ACO, multi-objective  |
 
-Depending upon the parameterization, further algorithm variants may be obtained. An instance of a Beam P-ACO class that uses a setting of `alpha=0.0` will omit the pheromone contributions from its branching decisions. Successor nodes are then chosen probabilistically according to only the problem's heuristic function. This variant is named in the paper as **Stochastic Beam**. If additionally a setting of `prob_greedy=1.0` is used, then that choice is instead deterministic. Nodes will branch towards the `branch_factor` best successors, as determined by the heuristic function, and the algorithm then effectively behaves as a (single- or multi-objective) **Beam Search**.
+Depending upon the parameterization, further algorithm variants may be obtained. An instance of a Beam P-ACO class that uses a setting of `alpha=0.0` will omit the pheromone contributions from its branching decisions. Successor nodes are then chosen probabilistically according to only the problem's heuristic function. This variant is named as **Stochastic Beam** in the paper. If additionally a setting of `prob_greedy=1.0` is used, then that choice is instead deterministic. Nodes will branch towards the `branch_factor` best successors, as determined by the heuristic function, and the algorithm then effectively behaves as a (single- or multi-objective) **Beam Search**.
 
 All problem-specific logic is offloaded in this code into a "path handler" class. A path handler for the Travelling Salesman Problem (TSP) is provided in [`class tsp_path`](paco/paco.py#L15) as example. To apply the algorithms in the module to other combinatorial optimization problems, a similar class should be created, exposing the same interface.
 
+
 ### [`paco_traj.py`](paco_traj.py) & [`experiments__paco.py`](experiments__paco.py) ###
 
-The interfacing between the [`gtoc5`](gtoc5) and [`paco`](paco) modules is achieved via the [`class gtoc5_ant`](paco_traj.py#L393) (single-objective) and [`gtoc5_ant_pareto`](paco_traj.py#L516) (multi-objective) path handlers implemented in [`paco_traj.py`](paco_traj.py).
+The interfacing between the [`gtoc5`](gtoc5) and [`paco`](paco) modules is achieved via the [`class gtoc5_ant`](paco_traj.py#L393) (single-objective) and [`class gtoc5_ant_pareto`](paco_traj.py#L516) (multi-objective) path handlers implemented in [`paco_traj.py`](paco_traj.py).
 
 In [`experiments__paco.py`](experiments__paco.py) the path handler, and the chosen P-ACO/Beam Search variant are parameterized, instantiated, and deployed for the construction of GTOC5 trajectories.
 
-**Executing [`experiments__paco.py`](experiments__paco.py) will replicate the paper's full [experimental plan](experiments__paco.py#L338).**
+**Executing [`experiments__paco.py`](experiments__paco.py) will replicate the paper's [full experimental plan](experiments__paco.py#L338).**
 <br>*Warning:* doing so will generate 24.8 GB of experimental results.
 
 
 *[To be added in coming days: code implementing the data analysis of the experimental results.]*
 
 
+
 ## References ##
 
-For additional information on the GTOC5 problem, or P-ACO, consult the references below.
+For additional information on the GTOC5 problem, P-ACO or Beam Search, consult the references below.
 
 See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 
@@ -65,6 +68,11 @@ See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 7. Guntsch, M.: [Ant algorithms in stochastic and multi-criteria environments][ref7]. Ph.D. thesis, Karlsruher Institut für Technologie (2004)
 8. Oliveira, S., Hussin, M.S., Stützle, T., Roli, A., Dorigo, M.: [A Detailed Analysis of the Population-Based Ant Colony Optimization Algorithm for the TSP and the QAP][ref8]. Tech. Rep. TR/IRIDIA/2011-006, IRIDIA (Feb 2011) [[support data][ref8supp]]
 9. Weise, T., Chiong, R., Lässig, J., Tang, K., Tsutsui, S., Chen, W., Michalewicz, Z., Yao, X.: [Benchmarking optimization algorithms: An open source framework for the traveling salesman problem][ref9]. *IEEE Computational Intelligence Magazine* 9(3), 40–52 (2014) [[GitHub][ref9code]]
+
+### Beam Search ###
+
+10. Wilt, C.M., Thayer, J.T., Ruml, W.: [A comparison of greedy search algorithms][ref10]. In: *Proceedings of the Third Annual Symposium on Combinatorial Search (SOCS-10)*. pp. 129–136 (2010)
+
 
 
 ## Dependencies ##
@@ -88,6 +96,7 @@ The experiments reported in the paper were carried out in Python 3.4.4, using th
 
 
 
+
 [DOI]: http://dx.doi.org/10.1007/978-3-319-55453-2_10
 [Scholar]: https://scholar.google.com/scholar_lookup?title=Multi-rendezvous%20Spacecraft%20Trajectory%20Optimization%20with%20Beam%20P-ACO
 [RG]: https://www.researchgate.net/publication/315071181_Multi-rendezvous_Spacecraft_Trajectory_Optimization_with_Beam_P-ACO
@@ -105,6 +114,8 @@ The experiments reported in the paper were carried out in Python 3.4.4, using th
 [ref8supp]: http://iridia.ulb.ac.be/supp/IridiaSupp2011-010/
 [ref9]: http://dx.doi.org/10.1109/MCI.2014.2326101
 [ref9code]: https://github.com/optimizationBenchmarking/tspSuite
+
+[ref10]: http://www.aaai.org/ocs/index.php/SOCS/SOCS10/paper/viewFile/2101/2515
 
 [pykep]: https://esa.github.io/pykep/
 [pk122]: https://github.com/esa/pykep/releases/tag/1.2.2
