@@ -4,7 +4,7 @@ This repository contains the code implementing the research described in the pap
 
 > Luís F. Simões, Dario Izzo, Evert Haasdijk, A. E. Eiben (2017) [Multi-rendezvous Spacecraft Trajectory Optimization with Beam P-ACO][DOI] In: *Evolutionary Computation in Combinatorial Optimization: 17th European Conference, EvoCOP 2017 (Amsterdam, The Netherlands, April 19-21, 2017)* Edited by: Bin Hu, Manuel López-Ibáñez. pp. 141-156. Springer.
 >
-> [ [DOI][DOI] . [Google Scholar][Scholar] . [ResearchGate][RG] ]
+> [ **[`PDF`][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] ]
 
 
 &nbsp;
@@ -96,7 +96,8 @@ The experiments reported in the paper were carried out in Python 3.4.4, using th
 
 
 
-
+[arXiv]: https://arxiv.org/abs/1704.00702
+[arXivPDF]: https://arxiv.org/pdf/1704.00702.pdf
 [DOI]: http://dx.doi.org/10.1007/978-3-319-55453-2_10
 [Scholar]: https://scholar.google.com/scholar_lookup?title=Multi-rendezvous%20Spacecraft%20Trajectory%20Optimization%20with%20Beam%20P-ACO
 [RG]: https://www.researchgate.net/publication/315071181_Multi-rendezvous_Spacecraft_Trajectory_Optimization_with_Beam_P-ACO
