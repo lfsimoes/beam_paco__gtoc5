@@ -41,16 +41,19 @@ def resource_rating(mission, **kwargs):
 
 def score(mission):
 	"Calculate the mission's score."
-	asts_in = set()
+	asts_rv = set()
+	asts_rvfb = set()
 	score = 0.0
 	for ast in seq(mission, incl_flyby=True)[1:]: # [1:] skips the Earth
-		if ast in asts_in:
-			sc = 0.8	# flyby score
-		else:
-			sc = 0.2	# rendezvous score
-			asts_in.add(ast)
+		sc = 0.0
+		if ast in asts_rv and ast not in asts_rvfb:
+			sc = 0.8			# flyby score
+			asts_rvfb.add(ast)
+		elif ast not in asts_rv:
+			sc = 0.2			# rendezvous score
+			asts_rv.add(ast)
 		if ast == 1:
-			sc *= 1.5	# bonus for the Beletskij asteroid
+			sc *= 1.5			# bonus for the Beletskij asteroid
 		score += sc
 	return score
 
