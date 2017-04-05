@@ -38,7 +38,7 @@ def expand_kwargs(func):
 	"""
 	Allows for kwargs that are to be sent to a function to be provided within a
 	dictionary sent as the last *arg. Useful when a function's caller can be set
-	to redirect *args, but not *kwargs (ex: np.apply_along_axis, until 1.9.0).
+	to redirect *args, but not *kwargs (e.g.: np.apply_along_axis, until 1.9.0).
 	"""
 	@wraps(func)
 	def wrapper(*args, **kwargs):

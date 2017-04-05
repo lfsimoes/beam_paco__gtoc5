@@ -206,7 +206,7 @@ class paco(object):
 		pop_len = self.pop_size - (1 if self.use_elitism else 0)
 		self.population = deque(maxlen=pop_len)
 		# Edges out from each given node along which ants have previously
-		# deposited pheromones.  Ex: self.popul_pheromone[i] = [j,k,j]
+		# deposited pheromones. Example: self.popul_pheromone[i] = [j,k,j]
 		# indicates 3 ants have previously visited node i, two of which
 		# moved on to j, while a third moved on to k.
 		self.popul_pheromone = [deque() for i in range(self.nr_nodes)]

@@ -30,7 +30,7 @@ def final_mass(mission):
 
 
 def tof(mission):
-	"Duration, in days, of the complete mission."
+	"Time of flight. Duration, in days, of the complete mission."
 	return mission[-1][2] - mission[0][2]
 
 
@@ -75,8 +75,12 @@ def mission_to_1st_asteroid(ast1, legs1=None):
 #		legs1 = pickle.load(open(path + '/mass_optimal_1st_leg.pkl', 'rb'))
 		legs1 = pickle.load(open(path + '/time_optimal_1st_leg.pkl', 'rb'))
 	
-	# locate in `legs1` the tuple corresponding to the leg towards `ast1`
-	leg1 = next(ast_leg for ast_leg in legs1 if ast_leg[0] == ast1)
+	try:
+		# locate in `legs1` the tuple corresponding to the leg towards `ast1`
+		leg1 = next(ast_leg for ast_leg in legs1 if ast_leg[0] == ast1)
+	except StopIteration:
+		raise Exception('No known launch leg towards asteroid %s (id: %d)' % (
+			asteroids[ast1].name, ast1)) from None  # (PEP 409)
 	
 	# get the first leg's parameters
 	dep_m = MASS_MAX
