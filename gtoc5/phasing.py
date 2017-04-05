@@ -16,16 +16,29 @@ from .constants import MU_SUN, AU, EARTH_VELOCITY, DAY2SEC, asteroids
 # ==================================== ## ==================================== #
 
 def edelbaum_dv(ast1, ast2, t):
+	"""
+	Edelbaum's equation for constant acceleration, circle to inclined circle
+	orbit transfer.
+	
+	Implements Eq. 45 from:
+	Theodore N. Edelbaum. "Propulsion Requirements for Controllable Satellites",
+	ARS Journal, Vol. 31, No. 8 (1961), pp. 1079-1089.
+	http://dx.doi.org/10.2514/8.5723
+	"""
 	(a1, _, i1, W1, _, _) = ast1.osculating_elements(t)
 	(a2, _, i2, W2, _, _) = ast2.osculating_elements(t)
+	
 	vc1 = sqrt(MU_SUN / a1)
 	vc2 = sqrt(MU_SUN / a2)
+	
 	cos_i_rel = cos(i1) * cos(i2) + sin(i1) * sin(i2) * cos(W1) * cos(W2) + \
 	            sin(i1) * sin(i2) * sin(W1) * sin(W2)
 	if cos_i_rel > 1 or cos_i_rel < -1:
 		cos_i_rel = 1
 	i_rel = acos(cos_i_rel)
-	return sqrt(vc1 * vc1 - 2. * vc1 * vc2 * cos(pi / 2. * i_rel) + vc2 * vc2)
+	
+	dV = sqrt(vc1 * vc1 - 2. * vc1 * vc2 * cos(pi / 2. * i_rel) + vc2 * vc2)
+	return dV
 
 
 def rate__edelbaum(dep_ast, dep_t, **kwargs):
