@@ -4,7 +4,7 @@ This repository contains the code implementing the research described in the pap
 
 > Luís F. Simões, Dario Izzo, Evert Haasdijk, A. E. Eiben (2017) [Multi-rendezvous Spacecraft Trajectory Optimization with Beam P-ACO][DOI] In: *Evolutionary Computation in Combinatorial Optimization: 17th European Conference, EvoCOP 2017 (Amsterdam, The Netherlands, April 19-21, 2017)* Edited by: Bin Hu, Manuel López-Ibáñez. pp. 141-156. Springer.
 >
-> [ **[`PDF`][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] ]
+> [ **[PDF][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] ]
 
 
 &nbsp;
@@ -17,30 +17,45 @@ It consists of a multi-rendezvous spacecraft trajectory optimization problem, wh
 
 The [`gtoc5`](gtoc5) module provided here contains an implementation of the problem model developed for the competition by the team from the European Space Agency [[2][ref2]].
 
+The module exposes the GTOC5 problem in the form of a black-box combinatorial optimization problem. Its primary goal is the identification of the longest possible sequence of asteroids (ordered, with no repetitions) that can be visited by the spacecraft along its mission, within the GTOC5 problem's imposed constraints.
+Creating a GTOC5 trajectory amounts in this module to choosing an Earth launch leg towards an initial asteroid, with [`mission_to_1st_asteroid()`][l_mission_to_1st], and subsequently issuing calls to [`add_asteroid()`][l_add_asteroid], to gradually extend the mission with additional exploration targets.
+
+The problem is characterized by a number of key distinguishing features:
+
+* ***multi-objective***: trajectories are evaluated with respect to number of asteroids explored, final mass, and time of flight (by [`score()`][l_score], [`final_mass()`][l_final_mass] and [`tof()`][l_tof], respectively – see code in [multiobjective.py](gtoc5/multiobjective.py) for ways to handle them);
+
+* ***bilevel optimization***: every time a decision is made in the combinatorial problem to take the spacecraft to a new asteroid, an optimization process is triggered (in [`lambert_optimize_dt()`][l_lambert]). It will "selfishly" pick the solution with smallest ∆V, out from a number of solved [Lambert's problems](https://en.wikipedia.org/wiki/Lambert%27s_problem), and thus define the new rendezvous leg;
+
+* ***dynamic objective function***: the mass and time costs to transfer between two given asteroids varies across (mission) time as asteroids move along their orbits, and also as a function of the spacecraft's state;
+
+* ***constrained objective function***: only a few of the 7075 asteroids will actually be reachable at any given time from a given departure asteroid, and so [`lambert_optimize_dt()`][l_lambert] may often fail to find any feasible solution to create the leg;
+
+* ***inaccurate heuristic***: the indicators provided in [phasing.py](gtoc5/phasing.py) ([Edelbaum][l_edelbaum], [Euclidean][l_euclidean], and [Orbital][l_orbital]) can be used to rate asteroids with respect to their desirability as targets into which to move the spacecraft. These ratings are however only moderately correlated with the ∆V costs obtained by [`lambert_optimize_dt()`][l_lambert]. 
+
 
 ### [`paco`](paco) ###
 
 The [`paco`](paco) module provides a (problem-independent) implementation of the Population-based Ant Colony Optimization algorithm (P-ACO), together with the extensions introduced in the paper: hybridization with Beam Search, and support for multi-objective problems. The different variants are made available through the following classes:
 
-| Class                                   | Algorithm                    |
-|:--------------------------------------- |:---------------------------- |
-| [`paco`](paco/paco.py#L132)             | P-ACO, single-objective      |
-| [`paco_pareto`](paco/paco.py#L627)      | P-ACO, multi-objective       |
-| [`beam_paco`](paco/paco.py#L390)        | Beam P-ACO, single-objective |
-| [`beam_paco_pareto`](paco/paco.py#L631) | Beam P-ACO, multi-objective  |
+| Class                                    | Algorithm                    |
+|:---------------------------------------- |:---------------------------- |
+| [`paco`][l_paco]                         | P-ACO, single-objective      |
+| [`paco_pareto`][l_paco_pareto]           | P-ACO, multi-objective       |
+| [`beam_paco`][l_beam_paco]               | Beam P-ACO, single-objective |
+| [`beam_paco_pareto`][l_beam_paco_pareto] | Beam P-ACO, multi-objective  |
 
 Depending upon the parameterization, further algorithm variants may be obtained. An instance of a Beam P-ACO class that uses a setting of `alpha=0.0` will omit the pheromone contributions from its branching decisions. Successor nodes are then chosen probabilistically according to only the problem's heuristic function. This variant is named as **Stochastic Beam** in the paper. If additionally a setting of `prob_greedy=1.0` is used, then that choice is instead deterministic. Nodes will branch towards the `branch_factor` best successors, as determined by the heuristic function, and the algorithm then effectively behaves as a (single- or multi-objective) **Beam Search**.
 
-All problem-specific logic is offloaded in this code into a "path handler" class. A path handler for the Travelling Salesman Problem (TSP) is provided in [`class tsp_path`](paco/paco.py#L15) as example. To apply the algorithms in the module to other combinatorial optimization problems, a similar class should be created, exposing the same interface.
+All problem-specific logic is offloaded in this code into a "path handler" class. A path handler for the Travelling Salesman Problem (TSP) is provided in [`class tsp_path`][l_tsp_path] as example. To apply the algorithms in the module to other combinatorial optimization problems, a similar class should be created, exposing the same interface.
 
 
 ### [`paco_traj.py`](paco_traj.py) & [`experiments__paco.py`](experiments__paco.py) ###
 
-The interfacing between the [`gtoc5`](gtoc5) and [`paco`](paco) modules is achieved via the [`class gtoc5_ant`](paco_traj.py#L393) (single-objective) and [`class gtoc5_ant_pareto`](paco_traj.py#L516) (multi-objective) path handlers implemented in [`paco_traj.py`](paco_traj.py).
+The interfacing between the [`gtoc5`](gtoc5) and [`paco`](paco) modules is achieved via the [`class gtoc5_ant`][l_gtoc5_ant] (single-objective) and [`class gtoc5_ant_pareto`][l_gtoc5_ant_pareto] (multi-objective) path handlers implemented in [paco_traj.py](paco_traj.py).
 
-In [`experiments__paco.py`](experiments__paco.py) the path handler, and the chosen P-ACO/Beam Search variant are parameterized, instantiated, and deployed for the construction of GTOC5 trajectories.
+In [experiments__paco.py](experiments__paco.py) the path handler, and the chosen P-ACO/Beam Search variant are parameterized, instantiated, and deployed for the construction of GTOC5 trajectories.
 
-**Executing [`experiments__paco.py`](experiments__paco.py) will replicate the paper's [full experimental plan](experiments__paco.py#L338).**
+**Executing [experiments__paco.py](experiments__paco.py) will replicate the paper's [full experimental plan][l_exper_plan].**
 <br>*Warning:* doing so will generate 24.8 GB of experimental results.
 
 
@@ -58,7 +73,7 @@ See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 
 1. Grigoriev, I.S., Zapletin, M.P.: [GTOC5: Problem statement and notes on solution verification][ref1]. *Acta Futura* 8, 9–19 (2014)
 2. Izzo, D., Simões, L.F., Yam, C.H., Biscani, F., Di Lorenzo, D., Addis, B., Cassioli, A.: [GTOC5: Results from the European Space Agency and University of Florence][ref2]. *Acta Futura* 8, 45–55 (2014)
-3. Izzo, D., Hennes, D., Simões, L.F., Märtens, M.: [Designing complex interplanetary trajectories for the global trajectory optimization competitions][ref3]. In: Fasano, G., Pintér, J.D. (eds.) *Space Engineering: Modeling and Optimization with Case Studies*, pp. 151–176. Springer (2016)
+3. Izzo, D., Hennes, D., Simões, L.F., Märtens, M.: [Designing complex interplanetary trajectories for the global trajectory optimization competitions][ref3]. In: Fasano, G., Pintér, J.D. (eds.) *Space Engineering: Modeling and Optimization with Case Studies*, pp. 151–176. Springer (2016) [[PDF][ref3_pdf]]
 
 ### Population-based Ant Colony Optimization (P-ACO) ###
 
@@ -79,7 +94,7 @@ See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 
 Below is the list of Python libraries on which the code depends.
 
-#### Experiments (``gtoc5`` and ``paco`` modules, `paco_traj.py`, ``experiments*.py``): ####
+#### Experiments (``gtoc5`` and ``paco`` modules, ``paco_traj.py``, ``experiments*.py``): ####
 
 * [PyKEP][pykep] 1.2.2 ([available here][pk122])
 * numpy 1.10.4
@@ -95,6 +110,28 @@ Below is the list of Python libraries on which the code depends.
 The experiments reported in the paper were carried out in Python 3.4.4, using the above-listed versions of each library.
 
 
+&nbsp;
+## Citation ##
+
+If you use any of this code in your work, please consider citing:
+
+```
+@INPROCEEDINGS{Simoes2017,
+  TITLE =     {Multi-rendezvous Spacecraft Trajectory Optimization with {Beam P-ACO}},
+  AUTHOR =    {Sim{\~o}es, Lu{\'i}s F. and Izzo, Dario and Haasdijk, Evert and Eiben, A. E.},
+  YEAR =      {2017},
+  BOOKTITLE = {Evolutionary Computation in Combinatorial Optimization. EvoCOP 2017},
+  editor =    {Hu, Bin and L{\'o}pez-Ib{\'a}{\~n}ez, Manuel},
+  series =    {Lecture Notes in Computer Science},
+  volume =    {10197},
+  pages =     {141--156},
+  publisher = {Springer},
+  address =   {Cham},
+  doi =       {10.1007/978-3-319-55453-2_10},
+}
+```
+
+
 
 [arXiv]: https://arxiv.org/abs/1704.00702
 [arXivPDF]: https://arxiv.org/pdf/1704.00702.pdf
@@ -106,6 +143,7 @@ The experiments reported in the paper were carried out in Python 3.4.4, using th
 [ref1]: http://dx.doi.org/10.2420/AF08.2014.9
 [ref2]: http://dx.doi.org/10.2420/AF08.2014.45
 [ref3]: http://dx.doi.org/10.1007/978-3-319-41508-6_6
+[ref3_pdf]: https://arxiv.org/pdf/1511.00821.pdf
 
 [ref4]: http://dx.doi.org/10.1007/3-540-46004-7_8
 [ref5]: http://dx.doi.org/10.1007/3-540-45724-0_10
@@ -120,3 +158,23 @@ The experiments reported in the paper were carried out in Python 3.4.4, using th
 
 [pykep]: https://esa.github.io/pykep/
 [pk122]: https://github.com/esa/pykep/releases/tag/1.2.2
+
+
+<!--- .code_locations.py -->
+[l_mission_to_1st]: gtoc5/gtoc5.py#L64
+[l_add_asteroid]: gtoc5/gtoc5.py#L125
+[l_score]: gtoc5/gtoc5.py#L42
+[l_final_mass]: gtoc5/gtoc5.py#L27
+[l_tof]: gtoc5/gtoc5.py#L32
+[l_lambert]: gtoc5/lambert.py#L169
+[l_edelbaum]: gtoc5/phasing.py#L44
+[l_euclidean]: gtoc5/phasing.py#L130
+[l_orbital]: gtoc5/phasing.py#L176
+[l_paco]: paco/paco.py#L132
+[l_paco_pareto]: paco/paco.py#L627
+[l_beam_paco]: paco/paco.py#L390
+[l_beam_paco_pareto]: paco/paco.py#L631
+[l_tsp_path]: paco/paco.py#L15
+[l_gtoc5_ant]: paco_traj.py#L393
+[l_gtoc5_ant_pareto]: paco_traj.py#L516
+[l_exper_plan]: experiments__paco.py#L336
