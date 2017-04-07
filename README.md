@@ -9,6 +9,19 @@ This repository contains the code implementing the research described in the pap
 >
 > [ **[PDF][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] ]
 
+****
+
+
+**Contents**
+
+ - [Code Structure](#code-structure)
+   - **[`gtoc5`](#gtoc5)**
+   - **[`paco`](#paco)**
+   - [`paco_traj.py` & `experiments__paco.py`](#paco_trajpy--experiments__pacopy)
+ - [References](#references)
+ - [Dependencies](#dependencies)
+ - [Citation](#citation)
+
 
 &nbsp;
 ## Code Structure ##
