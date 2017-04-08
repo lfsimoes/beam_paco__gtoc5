@@ -187,9 +187,9 @@ If you use any of this code in your work, please consider citing:
 [l_euclidean]: gtoc5/phasing.py#L130
 [l_orbital]: gtoc5/phasing.py#L176
 [l_paco]: paco/paco.py#L132
-[l_paco_pareto]: paco/paco.py#L627
-[l_beam_paco]: paco/paco.py#L390
-[l_beam_paco_pareto]: paco/paco.py#L631
+[l_paco_pareto]: paco/paco.py#L628
+[l_beam_paco]: paco/paco.py#L391
+[l_beam_paco_pareto]: paco/paco.py#L632
 [l_tsp_path]: paco/paco.py#L15
 [l_gtoc5_ant]: paco_traj.py#L393
 [l_gtoc5_ant_pareto]: paco_traj.py#L516

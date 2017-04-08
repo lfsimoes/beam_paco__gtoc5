@@ -129,6 +129,10 @@ def add_asteroid(mission, next_ast, use_cache=True, stats=None, **kwargs):
 	"""
 	global LEG_CACHE
 	
+	assert isinstance(next_ast, (int, np.integer)) and 0 < next_ast <= 7075, \
+		"Next asteroid should be given as an integer in {1, ..., 7075}."
+	next_ast = int(next_ast)
+	
 	if stats is not None:
 		# increment total number of [rendezvous] legs defined, either from
 		# a new optimization, or from a cache hit. Ignores feasibility.

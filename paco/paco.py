@@ -379,7 +379,8 @@ class paco(object):
 		"""
 		if reinitialize:
 			self.initialize()
-		for self.nr_gen in range(1, nr_generations + 1):
+		for g in range(nr_generations):
+			self.nr_gen += 1
 			self.build_generation()
 		return self.best
 		
