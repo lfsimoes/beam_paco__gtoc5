@@ -26,6 +26,8 @@ This repository contains the code implementing the research described in the pap
 &nbsp;
 ## Code Structure ##
 
+For examples of how to use different parts of the code, see the notebook [usage_demos.ipynb][nb_usage_demos.ipynb].
+
 ### [`gtoc5`](gtoc5) ###
 
 The GTOC5 acronym refers to the problem posed in the [5th edition of the Global Trajectory Optimization Competition][gtoc5@portal].
@@ -154,6 +156,8 @@ If you use any of this code in your work, please consider citing:
 [DOI]: http://dx.doi.org/10.1007/978-3-319-55453-2_10
 [Scholar]: https://scholar.google.com/scholar_lookup?title=Multi-rendezvous%20Spacecraft%20Trajectory%20Optimization%20with%20Beam%20P-ACO
 [RG]: https://www.researchgate.net/publication/315071181_Multi-rendezvous_Spacecraft_Trajectory_Optimization_with_Beam_P-ACO
+
+[nb_usage_demos.ipynb]: https://nbviewer.jupyter.org/github/lfsimoes/beam_paco__gtoc5/blob/master/usage_demos.ipynb
 
 [gtoc5@portal]: https://sophia.estec.esa.int/gtoc_portal/?page_id=25
 [ref1]: http://dx.doi.org/10.2420/AF08.2014.9
