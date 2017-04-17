@@ -5,11 +5,15 @@
 
 This repository contains the code implementing the research described in the paper:
 
-> Luís F. Simões, Dario Izzo, Evert Haasdijk, A. E. Eiben (2017) [Multi-rendezvous Spacecraft Trajectory Optimization with Beam P-ACO][DOI] In: *Evolutionary Computation in Combinatorial Optimization: 17th European Conference, EvoCOP 2017 (Amsterdam, The Netherlands, April 19-21, 2017)* Edited by: Bin Hu, Manuel López-Ibáñez. pp. 141-156. Springer.
+> Luís F. Simões, Dario Izzo, Evert Haasdijk, A. E. Eiben (2017) [Multi-rendezvous Spacecraft Trajectory Optimization with Beam P-ACO][DOI]. In: Hu, B., López-Ibáñez, M. (eds) *Evolutionary Computation in Combinatorial Optimization. EvoCOP 2017*. Lecture Notes in Computer Science, vol. 10197, pp. 141-156. Springer.
 >
-> [ **[PDF][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] ]
+> [ **[PDF][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] . [BibTeX](#citation) ]
 
 ****
+
+[![Trajectory video](traj_video.gif)][youtube_vid]<br>
+Visualization of the best-found trajectory. See the **[full video on YouTube][youtube_vid]**.<br>
+*(the code for generating trajectory videos is available in the [traj_video.ipynb][traj_video.ipynb] notebook)*<br><br>
 
 
 **Contents**
@@ -85,9 +89,10 @@ In [experiments__paco.py](experiments__paco.py) the path handler, and the chosen
 
 For additional information on the GTOC5 problem, P-ACO or Beam Search, consult the references below.
 
-See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
-
 ### GTOC5 / Spacecraft Trajectory Optimization ###
+
+The special issue of the *Acta Futura* journal dedicated to the GTOC5 competition is available [here][AFissue] (open access).<br>
+On the GTOC Portal, see the [GTOC5 problem section][gtoc5@portal], and the [Publications][pubs@portal] page for other papers addressing the problem. 
 
 1. Grigoriev, I.S., Zapletin, M.P.: [GTOC5: Problem statement and notes on solution verification][ref1]. *Acta Futura* 8, 9–19 (2014)
 2. Izzo, D., Simões, L.F., Yam, C.H., Biscani, F., Di Lorenzo, D., Addis, B., Cassioli, A.: [GTOC5: Results from the European Space Agency and University of Florence][ref2]. *Acta Futura* 8, 45–55 (2014)
@@ -100,7 +105,7 @@ See also the GTOC Portal [section for the GTOC5 problem][gtoc5@portal].
 6. Guntsch, M., Middendorf, M.: [Solving Multi-criteria Optimization Problems with Population-Based ACO][ref6]. In: Fonseca, C.M., Fleming, P.J., Zitzler, E., Thiele, L., Deb, K. (eds.) *Evolutionary Multi-Criterion Optimization: Second International Conference, EMO 2003*. pp. 464–478. Springer, Berlin, Heidelberg (2003)
 7. Guntsch, M.: [Ant algorithms in stochastic and multi-criteria environments][ref7]. Ph.D. thesis, Karlsruher Institut für Technologie (2004)
 8. Oliveira, S., Hussin, M.S., Stützle, T., Roli, A., Dorigo, M.: [A Detailed Analysis of the Population-Based Ant Colony Optimization Algorithm for the TSP and the QAP][ref8]. Tech. Rep. TR/IRIDIA/2011-006, IRIDIA (Feb 2011) [[support data][ref8supp]]
-9. Weise, T., Chiong, R., Lässig, J., Tang, K., Tsutsui, S., Chen, W., Michalewicz, Z., Yao, X.: [Benchmarking optimization algorithms: An open source framework for the traveling salesman problem][ref9]. *IEEE Computational Intelligence Magazine* 9(3), 40–52 (2014) [[GitHub][ref9code]]
+9. Weise, T., Chiong, R., Lässig, J., Tang, K., Tsutsui, S., Chen, W., Michalewicz, Z., Yao, X.: [Benchmarking optimization algorithms: An open source framework for the traveling salesman problem][ref9]. *IEEE Computational Intelligence Magazine* 9(3), 40–52 (2014) [[GitHub][ref9code]: [PACO.java][ref9code_paco]]
 
 ### Beam Search ###
 
@@ -157,9 +162,15 @@ If you use any of this code in your work, please consider citing:
 [Scholar]: https://scholar.google.com/scholar_lookup?title=Multi-rendezvous%20Spacecraft%20Trajectory%20Optimization%20with%20Beam%20P-ACO
 [RG]: https://www.researchgate.net/publication/315071181_Multi-rendezvous_Spacecraft_Trajectory_Optimization_with_Beam_P-ACO
 
+[youtube_vid]: https://www.youtube.com/watch?v=WdmbczsFyto
+[traj_video.ipynb]: https://nbviewer.jupyter.org/github/lfsimoes/beam_paco__gtoc5/blob/master/traj_video.ipynb
+
 [nb_usage_demos.ipynb]: https://nbviewer.jupyter.org/github/lfsimoes/beam_paco__gtoc5/blob/master/usage_demos.ipynb
 
 [gtoc5@portal]: https://sophia.estec.esa.int/gtoc_portal/?page_id=25
+[pubs@portal]: https://sophia.estec.esa.int/gtoc_portal/?page_id=312
+[AFissue]: http://dx.doi.org/10.2420/ACT-BOK-AF08
+
 [ref1]: http://dx.doi.org/10.2420/AF08.2014.9
 [ref2]: http://dx.doi.org/10.2420/AF08.2014.45
 [ref3]: http://dx.doi.org/10.1007/978-3-319-41508-6_6
@@ -173,6 +184,7 @@ If you use any of this code in your work, please consider citing:
 [ref8supp]: http://iridia.ulb.ac.be/supp/IridiaSupp2011-010/
 [ref9]: http://dx.doi.org/10.1109/MCI.2014.2326101
 [ref9code]: https://github.com/optimizationBenchmarking/tspSuite
+[ref9code_paco]: https://github.com/optimizationBenchmarking/tspSuite/blob/master/src/main/java/org/logisticPlanning/tsp/solving/algorithms/metaheuristics/permutation/paco/PACO.java
 
 [ref10]: http://www.aaai.org/ocs/index.php/SOCS/SOCS10/paper/viewFile/2101/2515
 
