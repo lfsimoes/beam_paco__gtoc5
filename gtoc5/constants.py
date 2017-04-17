@@ -32,9 +32,11 @@ EARTH_VELOCITY = sqrt(MU_SUN / AU)
 # Conversion factor from days to seconds
 DAY2SEC = 86400.0
 # Conversion factor from seconds to days
-SEC2DAY = 1 / DAY2SEC
+SEC2DAY = 1.0 / DAY2SEC
 # Conversion factor from years to days
 YEAR2DAY = 365.25
+# Conversion factor from days to years
+DAY2YEAR = 1.0 / YEAR2DAY
 
 
 # Specific impulse of the spacecraft's engine, s

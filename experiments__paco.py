@@ -201,7 +201,7 @@ class experiment(object):
 		print('')
 #		(q, m) = self.aco.best
 #		print(seq(m, incl_flyby=False))
-#		q = (score(m), resource_rating(m), final_mass(m), tof(m)/YEAR2DAY)
+#		q = (score(m), resource_rating(m), final_mass(m), tof(m) * DAY2YEAR)
 #		print(quality_nt(*q))
 		if self.pareto_elite:
 			msg = 'Size of the Pareto Elite archive: %d' % len(self.aco.elite)
@@ -228,7 +228,7 @@ class experiment(object):
 			# resource rating
 			(q, m) = max(self.aco.best, key=lambda i: resource_rating(i[1]))
 		return '[Score: %2d, Rating: %.5f, Mass: %7.3f, Time: %6.3f%s]' % (
-			score(m), resource_rating(m), final_mass(m), tof(m)/YEAR2DAY,
+			score(m), resource_rating(m), final_mass(m), tof(m) * DAY2YEAR,
 			'; |e|=%d' % len(self.aco.elite))
 		
 	

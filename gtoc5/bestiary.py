@@ -37,7 +37,7 @@ assert score(golden_path) == 16 and \
        abs(resource_rating(golden_path) - 0.011875988961470869) < 1e-10, \
        'Failed validation: Golden Path'
 
-# >>> score(golden_path), final_mass(golden_path), tof(golden_path) / YEAR2DAY
+# >>> score(golden_path), final_mass(golden_path), tof(golden_path) * DAY2YEAR
 # (16.0, 550.7674621625735, 14.84919353516749)
 
 
@@ -58,5 +58,5 @@ assert score(spice) == 17 and \
        abs(resource_rating(spice) - 0.0016809741417127071) < 1e-10, \
        'Failed validation: Spice'
 
-# >>> score(spice), final_mass(spice), tof(spice) / YEAR2DAY
+# >>> score(spice), final_mass(spice), tof(spice) * DAY2YEAR
 # (17.0, 503.1700581362939, 14.824982263414686)

@@ -61,7 +61,7 @@ class traj_stats(object):
 		_score = score(m)
 		_agg = resource_rating(m)
 		_mass = final_mass(m)
-		_tof = tof(m) / YEAR2DAY
+		_tof = tof(m) * DAY2YEAR
 		
 		t = (self.aco.nr_gen, self.nr_traj, self.nr_legs,
 		     self.nr_legs_distinct, self.nr_legs_feasible, self.nr_lambert)
@@ -245,7 +245,7 @@ class traj_stats(object):
 		Determine hypervolumes of the Pareto fronts of solutions generated up to
 		different points in time.
 		"""
-		refpt = (MASS_MAX - MASS_MIN, TIME_MAX / YEAR2DAY) # (3500 kg, 15 years)
+		refpt = (MASS_MAX - MASS_MIN, TIME_MAX * DAY2YEAR) # (3500 kg, 15 years)
 		if pf_evol is None:
 			pf_evol = self.pareto_front_evolution(**kwargs)
 		t, pf = pf_evol
@@ -538,7 +538,7 @@ class gtoc5_ant_pareto(gtoc5_ant):
 		The ideal mission will have MAX score, with MIN mass and time costs.
 		"""
 		mass_used = MASS_MAX - final_mass(ant_path)
-		time_used = tof(ant_path) / YEAR2DAY
+		time_used = tof(ant_path) * DAY2YEAR
 		return (score(ant_path), mass_used, time_used)
 		
 	
