@@ -8,6 +8,8 @@ This repository contains the code implementing the research described in the pap
 > Luís F. Simões, Dario Izzo, Evert Haasdijk, A. E. Eiben (2017) [Multi-rendezvous Spacecraft Trajectory Optimization with Beam P-ACO][DOI]. In: Hu, B., López-Ibáñez, M. (eds) *Evolutionary Computation in Combinatorial Optimization. EvoCOP 2017*. Lecture Notes in Computer Science, vol. 10197, pp. 141-156. Springer.
 >
 > [ **[PDF][arXivPDF]** . [DOI][DOI] . [Google Scholar][Scholar] . [arXiv][arXiv] . [ResearchGate][RG] . [BibTeX](#citation) ]
+>
+> See the [EvoStar'17 presentation slides][slides] for a quick overview of the paper's contributions.
 
 ****
 
@@ -161,6 +163,8 @@ If you use any of this code in your work, please consider citing:
 [DOI]: http://dx.doi.org/10.1007/978-3-319-55453-2_10
 [Scholar]: https://scholar.google.com/scholar_lookup?title=Multi-rendezvous%20Spacecraft%20Trajectory%20Optimization%20with%20Beam%20P-ACO
 [RG]: https://www.researchgate.net/publication/315071181_Multi-rendezvous_Spacecraft_Trajectory_Optimization_with_Beam_P-ACO
+
+[slides]: https://docs.google.com/presentation/d/1-ZcQm7BuM38j1Tg1yjzUBP6FSRPKvArLISemKRUUUIk/edit?usp=sharing
 
 [youtube_vid]: https://www.youtube.com/watch?v=WdmbczsFyto
 [traj_video.ipynb]: https://nbviewer.jupyter.org/github/lfsimoes/beam_paco__gtoc5/blob/master/traj_video.ipynb
