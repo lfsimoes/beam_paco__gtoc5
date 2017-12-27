@@ -1,4 +1,4 @@
-pykep
+pykep<2
 numpy
 scipy
 tqdm
